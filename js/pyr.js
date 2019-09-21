@@ -21,6 +21,14 @@ var Life = function(row, col, _diamond) {
     me.parent2 = -1; //int
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
+	if (parent1 === -1 || parent2 === -1) { //set up roots
+	    if (i === 0) {
+		return 1; //left root (red)
+	    }
+	    else {
+		return 2; //right root (blue)
+	    }
+	}
 	return Alchemy[parent1][parent2];
     }
 
@@ -69,13 +77,16 @@ var Diamond = function(height) {
 	}
     }
 
-    //assign parent ints to lifes
-    //_diamond.forEach(function(life) {
-    //life.parent1 = ;
-    //life.parent2 = ;
-    //}
-
-    //update
+    //realize life updates
+    me.updateLifes = function() {
+	for (n = 1; n < height; n++) { //for every row
+	    tn = (n * (n+1)) / 2; //calc its tri number
+	    //for this tn, increment n and update each cell
+	    for (i = 0; i <= n; i++) {
+		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
+	    }
+	}
+    }
 }
 
 var diamond = new Diamond(5);
