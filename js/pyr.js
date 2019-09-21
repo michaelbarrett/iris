@@ -188,3 +188,7 @@ var Diamond = function(height) {
 var diamond = new Diamond(5);
 diamond.updateLifes();
 diamond.updateLifes();
+diamond.updateLifes();
+diamond.updateLifes();
+diamond.updateLifes();
+diamond.updateLifes();
