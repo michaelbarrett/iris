@@ -84,32 +84,87 @@ var Diamond = function(height) {
 	}
     }
 
-    //realize life states... and then realize life parents
-    me.updateLifes = function() {
-	console.log("UPDATE--------------------------");
-	//update states of whole diamond
-	for (n = 1; n < height; n++) { //for every row
-	    tn = (n * (n+1)) / 2; //calc its tri number
-	    //for this tn, increment n and update state each cell
-	    for (i = 0; i <= n; i++) {		
-		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
-	    }
-
-	    //DEBUG LOOP
-	    for (i = 0; i <= n; i++) {
-		console.log(", row: " + _diamond[tn + i].row + 
-			    ", col: " + _diamond[tn + i].col + 
-			    ", state: " + _diamond[tn + i].state +
-			    ", parents: " + _diamond[tn + i].parent1 +
-			    " and " + _diamond[tn + i].parent2); //DEBUG
-	    }
-	}
+    me.updateParents = function() {
 	//update parents of whole diamond
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
 	    //for this tn, increment n and update parents of each cell
-	    for () {
+	    for (i = 1; i <= n; i++) {
+		if (n === 1) { //root has -1 parents
+		    _diamond[tn + i].parent1 = -1;
+		    _diamond[tn + i].parent2 = -1;
+		}
+		else if (i === 0) { //if on the left edge
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - n].state;
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) + 1].state;
+		}
+		else if (i === n) { //if on the right edge
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - 1].state;
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) - n - 1].state;
+		}
+		else { //middle life
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - n - 1].state; //left parent
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) - n].state; //right parent
+		}		
+	    } //then, i = 0
+	    if (n === 1) {
+		_diamond[tn].parent1 = -1;
+		_diamond[tn].parent2 = -1;
+	    }
+	    else {
+		_diamond[tn].parent1 = _diamond[tn - n].state;
+		_diamond[tn].parent2 = _diamond[tn + 1].state;
+	    }
+	}
+    }
 
+    //realize life states... between call of update parents
+    me.updateLifes = function() {
+	console.log("UPDATE--------------------------");
+	//pre upd parents
+	console.log("pre upd parents");
+	//DEBUG LOOP
+	for (n = 1; n < height; n++) { //for every row
+	    for (i = 0; i <= n; i++) {
+		tn = (n * (n+1)) / 2; //calc its tri number
+		console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
+		    ", row: " + _diamond[tn + i].row + 
+			", col: " + _diamond[tn + i].col + 
+			", state: " + _diamond[tn + i].state +
+			", parents: " + _diamond[tn + i].parent1 +
+			" and " + _diamond[tn + i].parent2); //DEBUG
+	    }
+	}
+	me.updateParents();
+	me.updateParents();
+	//update states of whole diamond
+	console.log("upd states");
+	for (n = 1; n < height; n++) { //for every row
+	    tn = (n * (n+1)) / 2; //calc its tri number
+	    //for this tn, increment n and update state each cell
+	    for (i = 1; i <= n; i++) {
+		//update the parents of this specific cell
+		
+		//update the cell state
+		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
+	    } //then, i = 0
+	    _diamond[tn + 0].state = _diamond[tn + 0].seeFuture();
+	}
+	//post upd parents
+	me.updateParents();
+	me.updateParents();
+	
+	console.log("post upd parents");
+	//DEBUG LOOP
+	for (n = 1; n < height; n++) { //for every row
+	    for (i = 0; i <= n; i++) {
+		tn = (n * (n+1)) / 2; //calc its tri number
+		console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
+		    ", row: " + _diamond[tn + i].row + 
+			", col: " + _diamond[tn + i].col + 
+			", state: " + _diamond[tn + i].state +
+			", parents: " + _diamond[tn + i].parent1 +
+			" and " + _diamond[tn + i].parent2); //DEBUG
 	    }
 	}
     }
