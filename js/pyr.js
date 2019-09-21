@@ -1,9 +1,9 @@
 //alert("working");
 
 var Alchemy = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 4, 3, 3, 4, 1, 1],
-    [0, 3, 2, 5, 6, 1, 1],
+    [0, 2, 1, 0, 0, 0, 0],
+    [2, 4, 3, 3, 4, 1, 1],
+    [1, 3, 2, 5, 6, 1, 1],
     [0, 3, 5, 5, 5, 1, 1],
     [0, 4, 6, 5, 3, 1, 1],
     [0, 5, 5, 1, 1, 6, 1],
@@ -42,6 +42,25 @@ var Diamond = function(height) {
 	for (i = 0; i <= n; i++) {
 	    _diamond[tn + i] = new Life(n, tn + i, _diamond);
 	    console.log("i: " + i + ", n: " + n + ", tn: " + tn);
+	}
+	//now go thru row again and set up parent ints
+	for (i = 0; i <= n; i++) {
+	    if (n === 0) { //root has null parents
+		_diamond[tn + i].parent1 = null;
+		_diamond[tn + i].parent2 = null;
+	    }
+	    else if (i === 0) { //if on the left edge
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - n];
+		_diamond[tn + i].parent2 = _diamond[(tn + i) + 1];
+	    }
+	    else if (i === n) { //if on the right edge
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - 1];
+		_diamond[tn + i].parent2 = _diamond[(tn + i) - n - 1];
+	    }
+	    else { //middle life
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - n - 1]; //left parent
+		_diamond[tn + i].parent2 = _diamond[(tn + i) - n]; //right parent
+	    }
 	}
     }
 
