@@ -144,7 +144,22 @@ var Diamond = function(height) {
 	    //for this tn, increment n and update state each cell
 	    for (i = 1; i <= n; i++) {
 		//update the parents of this specific cell
-		
+		if (n === 1) { //root has -1 parents
+		    _diamond[tn + i].parent1 = -1;
+		    _diamond[tn + i].parent2 = -1;
+		}
+		else if (i === 0) { //if on the left edge
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - n].state;
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) + 1].state;
+		}
+		else if (i === n) { //if on the right edge
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - 1].state;
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) - n - 1].state;
+		}
+		else { //middle life
+		    _diamond[tn + i].parent1 = _diamond[(tn + i) - n - 1].state; //left parent
+		    _diamond[tn + i].parent2 = _diamond[(tn + i) - n].state; //right parent
+		}		
 		//update the cell state
 		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
 	    } //then, i = 0
