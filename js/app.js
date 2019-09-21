@@ -116,7 +116,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 		       life.row * _lifeWidth,
 		       radius, 0, 2 * Math.PI, false);
 	    me.ctx.fill();
-	    me.ctx.lineWidth = 0;
+	    me.ctx.lineWidth = 0;	    
 
 	});
     };
