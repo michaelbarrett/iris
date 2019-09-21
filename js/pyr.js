@@ -21,7 +21,7 @@ var Life = function(row, col, _pyr) {
     me.parent2 = null; //int
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
-	return alchemy[parent1][parent2];
+	return Alchemy[parent1][parent2];
     }
 
     return me;
@@ -31,5 +31,22 @@ var Diamond = function(height) {
     var me = this;
     var totalNumOfLifes = (height * (height + 1)) / 2; //num in pyramid
     var _diamond = new Array(totalNumOfLifes);
-    var _living = [];
+
+    var tn;
+    var n;
+    var i;
+    //for every triangular number
+    for (n = 0; n < height; n++) { //for every row
+	tn = (n * (n+1)) / 2; //calc its tri number
+	//for this tn, increment n and instantiate each cell
+	for (i = 0; i <= n; i++) {
+	    _diamond[tn + i] = new Life(n, tn + i, _diamond);
+	}
+    }
+
+    //assign parent ints to lifes
+    //_diamond.forEach(function(life) {
+    //life.parent1 = ;
+    //life.parent2 = ;
+    //}
 }
