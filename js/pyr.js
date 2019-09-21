@@ -121,24 +121,7 @@ var Diamond = function(height) {
     //realize life states... between call of update parents
     me.updateLifes = function() {
 	console.log("UPDATE--------------------------");
-	//pre upd parents
-	console.log("pre upd parents");
-	//DEBUG LOOP
-	for (n = 1; n < height; n++) { //for every row
-	    for (i = 0; i <= n; i++) {
-		tn = (n * (n+1)) / 2; //calc its tri number
-		console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
-		    ", row: " + _diamond[tn + i].row + 
-			", col: " + _diamond[tn + i].col + 
-			", state: " + _diamond[tn + i].state +
-			", parents: " + _diamond[tn + i].parent1 +
-			" and " + _diamond[tn + i].parent2); //DEBUG
-	    }
-	}
-	me.updateParents();
-	me.updateParents();
 	//update states of whole diamond
-	console.log("upd states");
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
 	    //for this tn, increment n and update state each cell
@@ -165,8 +148,7 @@ var Diamond = function(height) {
 	    } //then, i = 0
 	    _diamond[tn + 0].state = _diamond[tn + 0].seeFuture();
 	}
-	//post upd parents
-	me.updateParents();
+	//post upd parents general
 	me.updateParents();
 	
 	console.log("post upd parents");
