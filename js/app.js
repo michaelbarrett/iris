@@ -16,7 +16,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var viewWidth = me.canvas.width = window.innerWidth;
     var viewHeight = me.canvas.height = window.innerHeight;
 
-    var _lifeWidth = 22;
+    var _lifeWidth = 22; //22
     var _lifeHeight = _lifeWidth;
 
     //Initialize our Diamond data structure from above
@@ -27,11 +27,19 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var timeSin;
 
     window.onkeydown = function(e) {
-	_backAnim = !_backAnim;
+	if (e.keyCode === 32 || e.key === ' ') {
+	    _startSim = !_startSim;
+	}
+    }
+
+    window.onkeydown = function(e) {
+	if (e.keyCode === 66 || e.key === 'b') {
+	    _backAnim = !_backAnim;
+	}
     }
 
     //Start kicks off our main loop
-    var updateSpeed = 5;
+    var updateSpeed = 45;
     me.start = function() {	
 	startTime = new Date();
 	setInterval(function() {
@@ -68,7 +76,6 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    me.ctx.fillStyle = 'black';
 	    me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
 	}
-
 	//for each life
 	diamond.filter(function(life) {
 	    return 1>0;
@@ -118,5 +125,5 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     return me;
 };
 
-var app = new App("iris", 100, 100, 30);
+var app = new App("iris", 100, 100, 35); //35
 app.start();
