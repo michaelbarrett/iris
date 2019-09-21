@@ -27,7 +27,7 @@ var Life = function(row, col, _pyr) {
     return me;
 }
 
-var Field = function(height) {
+var Diamond = function(height) {
     var me = this;
-    var _field = new Array();
+    var _diamond = new Array();
 }
