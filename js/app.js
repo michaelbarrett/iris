@@ -41,7 +41,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     //Draw draws the entire app
     me.draw = function() {
 	//Erase previous draw by filling entire canvas with white
-	me.ctx.fillStyle = 'white';
+	me.ctx.fillStyle = 'black';
 	me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
 
 	//for each life
@@ -61,7 +61,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 		me.ctx.fillStyle = 'DeepPink';
 	    }
 	    else if (life.state === 5) {
-		me.ctx.fillStyle = 'Black';
+		me.ctx.fillStyle = 'White';
 	    }
 	    else if (life.state === 6) {
 		me.ctx.fillStyle = 'Green';
@@ -69,14 +69,25 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    else {
 		me.ctx.fillStyle = 'Gray';
 	    }
-	    me.ctx.fillRect(life.col * _lifeHeight,
+	    /*me.ctx.fillRect(life.col * _lifeHeight,
 			    life.row * _lifeWidth, 
-			    _lifeWidth, _lifeHeight);
+			    _lifeWidth, _lifeHeight);*/
+
+	    //var centerX = canvas.width / 2;
+	    //var centerY = canvas.height / 2;
+	    var radius = 16;
+
+	    me.ctx.beginPath();
+	    me.ctx.arc(life.col * _lifeHeight, life.row * _lifeWidth, radius, 0, 2 * Math.PI, false);
+	    me.ctx.fill();
+	    me.ctx.lineWidth = 0;
+
+
 	});
     };
 
     return me;
 };
 
-var app = new App("iris", 100, 100, 5);
+var app = new App("iris", 100, 100, 15);
 app.start();
