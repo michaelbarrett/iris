@@ -24,15 +24,17 @@ var Life = function(row, col, _diamond) {
 	if (me.parent1 === -1 || me.parent2 === -1) { //set up roots
 	    if (me.col === 1) {
 		//console.log(me.parent1 + " and " + me.parent2 + " results in 1");
-		return 1; //left root (red)
+		//return 1; //left root (red)
+		return Math.floor((Math.random() * 2)) + 1;
 	    }
 	    else {
 		//console.log(me.parent1 + " and " + me.parent2 + " results in 2");
-		return 2; //right root (blue)
+		//return 2; //right root (blue)
+		return Math.floor((Math.random() * 2)) + 1;
 	    }
 	}
-	console.log(me.parent1 + " and " + me.parent2 + " results in " +
-		    Alchemy[me.parent1][me.parent2]);
+	//console.log(me.parent1 + " and " + me.parent2 + " results in " +
+	//	    Alchemy[me.parent1][me.parent2]);
 	return Alchemy[me.parent1][me.parent2];
     }
 
@@ -41,9 +43,9 @@ var Life = function(row, col, _diamond) {
 
 var Diamond = function(height) {
     var me = this;
-    console.log("height: " + height);
+    //console.log("height: " + height);
     var totalNumOfLifes = (height * (height + 1)) / 2; //num in pyramid
-    console.log("tnol: " + totalNumOfLifes);
+    //console.log("tnol: " + totalNumOfLifes);
     var _diamond = new Array(totalNumOfLifes);
 
     var tn;
@@ -77,12 +79,12 @@ var Diamond = function(height) {
 	}
 	//DEBUG LOOP
 	for (i = 0; i <= n; i++) {
-	    console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
+	    /*console.log("i: " + i + ", n: " + n + ", tn: " + tn +
 			", row: " + _diamond[tn + i].row + 
 			", col: " + _diamond[tn + i].col + 
 			", state: " + _diamond[tn + i].state +
 			", parents: " + _diamond[tn + i].parent1 +
-			" and " + _diamond[tn + i].parent2); //DEBUG
+			" and " + _diamond[tn + i].parent2); //DEBUG*/
 	}
     }
 
@@ -141,7 +143,7 @@ var Diamond = function(height) {
 
     //realize life states... between call of update parents
     me.updateLifes = function(counter) {
-	console.log("UPDATE--------------------------");
+	//console.log("UPDATE--------------------------");
 	//update states of whole diamond
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
@@ -177,17 +179,17 @@ var Diamond = function(height) {
 	    me.counterUpdateParents();
 	}
 	
-	console.log("post upd parents");
+	//console.log("post upd parents");
 	//DEBUG LOOP
 	for (n = 1; n < height; n++) { //for every row
 	    for (i = 0; i <= n; i++) {
 		tn = (n * (n+1)) / 2; //calc its tri number
-		console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
+		/*console.log("i: " + i + ", n: " + n + ", tn: " + tn +
 		    ", row: " + _diamond[tn + i].row + 
 			", col: " + _diamond[tn + i].col + 
 			", state: " + _diamond[tn + i].state +
 			", parents: " + _diamond[tn + i].parent1 +
-			" and " + _diamond[tn + i].parent2); //DEBUG
+			" and " + _diamond[tn + i].parent2); */ //DEBUG
 	    }
 	}
     }

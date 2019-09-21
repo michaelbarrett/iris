@@ -30,7 +30,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	setInterval(function() {
 	    me.update();
 	    me.draw();
-	}, 10); //main loop refreshes every ~10 / 20 / 60ms
+	}, 30); //main loop refreshes every ~10 / 20 / 60ms
     }
 
     //Update updates all state in the app
@@ -46,6 +46,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    diamond.updateLifes(false);
 	}
 	if (timeDiff > 2) {
+	    //alert(">2");
 	    diamond.updateLifes(true);
 	}
     };
