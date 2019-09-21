@@ -36,7 +36,7 @@ var Diamond = function(height) {
     var n;
     var i;
     //for every triangular number
-    for (n = 0; n < height; n++) { //for every row
+    for (n = 1; n < height; n++) { //for every row
 	tn = (n * (n+1)) / 2; //calc its tri number
 	//for this tn, increment n and instantiate each cell
 	for (i = 0; i <= n; i++) {
@@ -44,7 +44,7 @@ var Diamond = function(height) {
 	}
 	//now go thru row again and set up parent ints
 	for (i = 0; i <= n; i++) {
-	    if (n === 0) { //root has -1 parents
+	    if (n === 1) { //root has -1 parents
 		_diamond[tn + i].parent1 = -1;
 		_diamond[tn + i].parent2 = -1;
 	    }
@@ -62,7 +62,7 @@ var Diamond = function(height) {
 	    }
 	}
 	//DEBUG LOOP
-	for (i = 0; i < n; i++) {
+	for (i = 0; i <= n; i++) {
 	    console.log("i: " + i + ", n: " + n + ", tn: " + tn +
 			", parents: " + _diamond[tn + i].parent1 +
 			" and " + _diamond[tn + i].parent2); //DEBUG
