@@ -16,7 +16,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var viewWidth = me.canvas.width = window.innerWidth;
     var viewHeight = me.canvas.height = window.innerHeight;
 
-    var _lifeWidth = 32;
+    var _lifeWidth = 22;
     var _lifeHeight = _lifeWidth;
 
     //Initialize our Diamond data structure from above
@@ -75,10 +75,12 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 
 	    //var centerX = canvas.width / 2;
 	    //var centerY = canvas.height / 2;
-	    var radius = 16;
+	    var radius = 8;
 
 	    me.ctx.beginPath();
-	    me.ctx.arc(life.col * _lifeHeight, life.row * _lifeWidth, radius, 0, 2 * Math.PI, false);
+	    me.ctx.arc(life.col * _lifeHeight,
+		       life.row * _lifeWidth,
+		       radius, 0, 2 * Math.PI, false);
 	    me.ctx.fill();
 	    me.ctx.lineWidth = 0;
 
@@ -89,5 +91,5 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     return me;
 };
 
-var app = new App("iris", 100, 100, 15);
+var app = new App("iris", 100, 100, 30);
 app.start();
