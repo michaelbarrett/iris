@@ -24,7 +24,9 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var _startSim = true;
 
     //Start kicks off our main loop
+    var elapsedTime = 0;
     me.start = function() {
+	startTime = new Date();
 	setInterval(function() {
 	    me.update();
 	    me.draw();
@@ -32,12 +34,19 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     }
 
     //Update updates all state in the app
+    var timeDiff;
+    var seconds;
     me.update = function() {
+	endTime = new Date();
+	timeDiff = endTime - startTime; //in ms
+	// strip the ms
+	timeDiff /= 1000;
+	seconds = Math.round(timeDiff);
 	if (_startSim) {
 	    diamond.updateLifes(false);
 	}
-	if () {
-
+	if (timeDiff > 2) {
+	    diamond.updateLifes(true);
 	}
     };
 
