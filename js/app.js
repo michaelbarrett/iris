@@ -24,13 +24,22 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var _startSim = true;
 
     //Start kicks off our main loop
-    var elapsedTime = 0;
+    var spd = 30;
     me.start = function() {
 	startTime = new Date();
 	setInterval(function() {
 	    me.update();
 	    me.draw();
-	}, 30); //main loop refreshes every ~10 / 20 / 60ms
+	}, spd); //main loop refreshes every ~10 / 20 / 60ms
+	if (spd > 40) {
+	    spd += Math.round(Math.random()) * 2 - 3
+	}
+	if (spd <= 40 && spd >= 10) {
+	    spd += Math.round(Math.random()) * 2 - 1
+	}
+	if (spd < 10) {
+	    spd += Math.round(Math.random()) * 2 + 1
+	}
     }
 
     //Update updates all state in the app
@@ -45,10 +54,10 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	if (_startSim) {
 	    diamond.updateLifes(false);
 	}
-	if (timeDiff > 2) {
+/*	if (timeDiff > 2) {
 	    //alert(">2");
 	    diamond.updateLifes(true);
-	}
+	} */
     };
 
     //Draw draws the entire app
@@ -56,7 +65,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	//Erase previous draw by filling entire canvas with white
 	me.ctx.fillStyle = "rgba(0, 0, 0, 0)";
 	me.ctx.fillStyle = 'black';
-	me.ctx.fillStyle = "rgba(0, 0, 0, 1)";
+	me.ctx.fillStyle = "rgba(0, 0, 0, 0.001)";
 	me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
 
 	//for each life
@@ -93,7 +102,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    var radius = 8;
 
 	    me.ctx.beginPath();
-	    me.ctx.arc(((life.col * _lifeHeight) + (me.canvas.width / 2))
+	    me.ctx.arc(((life.col * _lifeHeight) + (me.canvas.width / 2) + (timeDiff * 100))
 		       - ((life.row * _lifeHeight) / 2),
 		       life.row * _lifeWidth,
 		       radius, 0, 2 * Math.PI, false);

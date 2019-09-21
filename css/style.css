@@ -1,8 +1,35 @@
 body {
-    background-color: #000;
+    height: 100%;
+}
+
+html {
+    background: url(https://media.giphy.com/media/KFhddg8vZNkB90hoCu/giphy.gif); no-repeat center center fixed;
+    background-size: cover;
 }
 
 h1 {
     color: #fff;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  position: relative;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  z-index: -000;
+  top: 0;
+  left: 0;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+
 }
