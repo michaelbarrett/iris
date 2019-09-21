@@ -48,7 +48,27 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	diamond.filter(function(life) {
 	    return 1>0;
 	}).forEach(function(life) {
-	    me.ctx.fillStyle = 'black'; //fill with black
+	    if (life.state === 1) {
+		me.ctx.fillStyle = 'red';
+	    }
+	    else if (life.state === 2) {
+		me.ctx.fillStyle = 'blue';
+	    }
+	    else if (life.state === 3) {
+		me.ctx.fillStyle = 'purple';
+	    }
+	    else if (life.state === 4) {
+		me.ctx.fillStyle = 'white';
+	    }
+	    else if (life.state === 5) {
+		me.ctx.fillStyle = 'black';
+	    }
+	    else if (life.state === 6) {
+		me.ctx.fillStyle = 'green';
+	    }
+	    else {
+		me.ctx.fillStyle = 'gray';
+	    }
 	    me.ctx.fillRect(life.row * _lifeWidth, life.col * _lifeHeight,
 			    _lifeWidth, _lifeHeight);
 	});
