@@ -21,15 +21,21 @@ var Life = function(row, col, _diamond) {
     me.parent2 = -1; //int
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
-	if (parent1 === -1 || parent2 === -1) { //set up roots
-	    if (i === 0) {
+	if (me.parent1 === -1 || me.parent2 === -1) { //set up roots
+	    if (me.col === 1) {
+		console.log(me.parent1 + " and " + me.parent2 + " results in " +
+			    Alchemy[me.parent1][me.parent2]);
 		return 1; //left root (red)
 	    }
 	    else {
+		console.log(me.parent1 + " and " + me.parent2 + " results in " +
+			    Alchemy[me.parent1][me.parent2]);
 		return 2; //right root (blue)
 	    }
 	}
-	return Alchemy[parent1][parent2];
+	console.log(me.parent1 + " and " + me.parent2 + " results in " +
+		    Alchemy[me.parent1][me.parent2]);
+	return Alchemy[me.parent1][me.parent2];
     }
 
     return me;
@@ -48,7 +54,7 @@ var Diamond = function(height) {
 	tn = (n * (n+1)) / 2; //calc its tri number
 	//for this tn, increment n and instantiate each cell
 	for (i = 0; i <= n; i++) {
-	    _diamond[tn + i] = new Life(n, tn + i, _diamond);	 
+	    _diamond[tn + i] = new Life(n, i, _diamond);
 	}
 	//now go thru row again and set up parent ints
 	for (i = 0; i <= n; i++) {
@@ -72,17 +78,26 @@ var Diamond = function(height) {
 	//DEBUG LOOP
 	for (i = 0; i <= n; i++) {
 	    console.log("i: " + i + ", n: " + n + ", tn: " + tn +
+			", row: " + _diamond[tn + i].row + 
+			", col: " + _diamond[tn + i].col + 
+			", state: " + _diamond[tn + i].state +
 			", parents: " + _diamond[tn + i].parent1 +
 			" and " + _diamond[tn + i].parent2); //DEBUG
 	}
     }
 
-    //realize life updates
+    //realize life updates... and then update parents
     me.updateLifes = function() {
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
 	    //for this tn, increment n and update each cell
 	    for (i = 0; i <= n; i++) {
+		console.log("UPDATE " + 
+			    ", row: " + _diamond[tn + i].row + 
+			    ", col: " + _diamond[tn + i].col + 
+			    ", state: " + _diamond[tn + i].state +
+			    ", parents: " + _diamond[tn + i].parent1 +
+			    " and " + _diamond[tn + i].parent2); //DEBUG		
 		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
 	    }
 	}
@@ -90,3 +105,4 @@ var Diamond = function(height) {
 }
 
 var diamond = new Diamond(5);
+diamond.updateLifes();
