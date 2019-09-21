@@ -49,4 +49,8 @@ var Diamond = function(height) {
     //life.parent1 = ;
     //life.parent2 = ;
     //}
+
+    //update
 }
+
+var diamond = new Diamond(5);
