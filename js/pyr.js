@@ -17,9 +17,11 @@ var Life = function(row, col, _pyr) {
     me.row = row;
     me.col = col;
 
-    me.parents = null;
+    me.parent1 = null;
+    me.parent2 = null;
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
+	return alchemy[parents[0]][parents[1]];
     }
 
     return me;
