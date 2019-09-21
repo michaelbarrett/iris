@@ -1,4 +1,4 @@
-alert("working");
+//alert("working");
 
 var Alchemy = [
     [0, 0, 0, 0, 0, 0, 0],
@@ -10,7 +10,7 @@ var Alchemy = [
     [0, 1, 1, 1, 1, 1, 2]
 ];
 
-var Life = function(row, col, _pyr) {
+var Life = function(row, col, _diamond) {
     var me = this;
 
     me.state = 0;
@@ -41,6 +41,7 @@ var Diamond = function(height) {
 	//for this tn, increment n and instantiate each cell
 	for (i = 0; i <= n; i++) {
 	    _diamond[tn + i] = new Life(n, tn + i, _diamond);
+	    console.log("i: " + i + ", n: " + n + ", tn: " + tn);
 	}
     }
 
