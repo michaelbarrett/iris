@@ -28,7 +28,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	setInterval(function() {
 	    me.update();
 	    me.draw();
-	}, 60); //main loop refreshes every ~60ms
+	}, 600); //main loop refreshes every ~60ms
     }
 
     //Update updates all state in the app
@@ -49,27 +49,28 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    return 1>0;
 	}).forEach(function(life) {
 	    if (life.state === 1) {
-		me.ctx.fillStyle = 'red';
+		me.ctx.fillStyle = 'Red';
 	    }
 	    else if (life.state === 2) {
-		me.ctx.fillStyle = 'blue';
+		me.ctx.fillStyle = 'Blue';
 	    }
 	    else if (life.state === 3) {
-		me.ctx.fillStyle = 'purple';
+		me.ctx.fillStyle = 'Purple';
 	    }
 	    else if (life.state === 4) {
-		me.ctx.fillStyle = 'white';
+		me.ctx.fillStyle = 'DeepPink';
 	    }
 	    else if (life.state === 5) {
-		me.ctx.fillStyle = 'black';
+		me.ctx.fillStyle = 'Black';
 	    }
 	    else if (life.state === 6) {
-		me.ctx.fillStyle = 'green';
+		me.ctx.fillStyle = 'Green';
 	    }
 	    else {
-		me.ctx.fillStyle = 'gray';
+		me.ctx.fillStyle = 'Gray';
 	    }
-	    me.ctx.fillRect(life.row * _lifeWidth, life.col * _lifeHeight,
+	    me.ctx.fillRect(life.col * _lifeHeight,
+			    life.row * _lifeWidth, 
 			    _lifeWidth, _lifeHeight);
 	});
     };
