@@ -34,7 +34,7 @@ var Life = function(row, col, _diamond) {
 	    }
 	}
 	//console.log(me.parent1 + " and " + me.parent2 + " results in " +
-	//	    Alchemy[me.parent1][me.parent2]);
+	//Alchemy[me.parent1][me.parent2]);
 	return Alchemy[me.parent1][me.parent2];
     }
 

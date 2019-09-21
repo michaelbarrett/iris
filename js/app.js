@@ -20,28 +20,24 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var _lifeHeight = _lifeWidth;
 
     //Initialize our Diamond data structure from above
-    var diamond = new Diamond(diamondHeight);
     var _startSim = true;
+    var _backAnim = false;    
+    var diamond = new Diamond(diamondHeight);
     var timeDiff;
     var timeSin;
 
+    window.onkeydown = function(e) {
+	_backAnim = !_backAnim;
+    }
+
     //Start kicks off our main loop
-    var spd = 30;
-    me.start = function() {
+    var updateSpeed = 5;
+    me.start = function() {	
 	startTime = new Date();
 	setInterval(function() {
 	    me.update();
 	    me.draw();
-	}, spd); //main loop refreshes every ~10 / 20 / 60ms
-	if (spd > 40) {
-	    spd += Math.round(Math.random()) * 2 - 3
-	}
-	if (spd <= 40 && spd >= 10) {
-	    spd += Math.round(Math.random()) * 2 - 1
-	}
-	if (spd < 10) {
-	    spd += Math.round(Math.random()) * 2 + 1
-	}
+	}, updateSpeed); //main loop refreshes every ~10 / 20 / 60ms
     }
 
     //Update updates all state in the app
@@ -65,15 +61,13 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 
     //Draw draws the entire app
     me.draw = function() {
-	//Erase previous draw by filling entire canvas with white
-	//me.ctx.fillStyle = "rgba(0, 0, 0, 0)";
-	//me.ctx.fillStyle = 'black';
-	//me.ctx.clearRect(0, 0, canvas.width, canvas.height);
+	//erase previous draw
 	me.canvas.width = me.canvas.width;
-	//me.ctx.fillStyle = "rgba(0, 0, 0, 0.001)";
-	//me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
-	//me.ctx.font = "30px Arial";
-	//me.ctx.fillText("Hello World", canvas.width/2, canvas.height/2);
+	//put black sheet over gif
+	if (_backAnim === false) {
+	    me.ctx.fillStyle = 'black';
+	    me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
+	}
 
 	//for each life
 	diamond.filter(function(life) {
@@ -111,7 +105,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 
 	    me.ctx.beginPath();
 	    
-	    me.ctx.arc(((life.col * _lifeHeight) + (me.canvas.width / 2) + (timeSin * 100))
+	    me.ctx.arc(((life.col * _lifeHeight) + (me.canvas.width / 2) /*+ (timeSin * 100)*/)
 		       - ((life.row * _lifeHeight) / 2),
 		       life.row * _lifeWidth,
 		       radius, 0, 2 * Math.PI, false);
