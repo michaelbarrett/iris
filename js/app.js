@@ -33,8 +33,11 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 
     //Update updates all state in the app
     me.update = function() {
-	if(_startSim) {
-	    diamond.updateLifes();
+	if (_startSim) {
+	    diamond.updateLifes(false);
+	}
+	if () {
+
 	}
     };
 

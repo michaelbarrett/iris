@@ -86,11 +86,26 @@ var Diamond = function(height) {
 	}
     }
 
+    me.counterUpdateParents = function() {
+	for (n = height-1; n != 0; n--) { //for every row (counter)
+	    tn = (n * (n+1)) / 2; //calc its tri number
+	    //for this tn, increment i and update parents of each cell
+	    for (i = 0; i <= n; i++) {
+		if (n === (height-1)) { //roots have -1 parents
+		    _diamond[tn + i].parent1 = -1;
+		    _diamond[tn + i].parent2 = -1;
+		}
+		_diamond[tn + i].parent1 = _diamond[(tn + i) + n + 1].state;
+		_diamond[tn + i].parent2 = _diamond[(tn + i) + n].state;		
+	    }
+	}
+    }
+
     me.updateParents = function() {
 	//update parents of whole diamond
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
-	    //for this tn, increment n and update parents of each cell
+	    //for this tn, increment i and update parents of each cell
 	    for (i = 1; i <= n; i++) {
 		if (n === 1) { //root has -1 parents
 		    _diamond[tn + i].parent1 = -1;
@@ -110,8 +125,8 @@ var Diamond = function(height) {
 		}		
 	    } //then, i = 0
 	    if (n === 1) {
-		_diamond[tn].parent1 = -1;
-		_diamond[tn].parent2 = -1;
+	    _diamond[tn].parent1 = -1;
+	    _diamond[tn].parent2 = -1;
 	    }
 	    else {
 		_diamond[tn].parent1 = _diamond[tn - n].state;
@@ -125,7 +140,7 @@ var Diamond = function(height) {
     }
 
     //realize life states... between call of update parents
-    me.updateLifes = function() {
+    me.updateLifes = function(counter) {
 	console.log("UPDATE--------------------------");
 	//update states of whole diamond
 	for (n = 1; n < height; n++) { //for every row
@@ -155,7 +170,12 @@ var Diamond = function(height) {
 	    _diamond[tn + 0].state = _diamond[tn + 0].seeFuture();
 	}
 	//post upd parents general
-	me.updateParents();
+	if (counter === false) {
+	    me.updateParents();
+	}
+	else {
+	    me.counterUpdateParents();
+	}
 	
 	console.log("post upd parents");
 	//DEBUG LOOP
@@ -174,9 +194,3 @@ var Diamond = function(height) {
 }
 
 var diamond = new Diamond(5);
-diamond.updateLifes();
-diamond.updateLifes();
-diamond.updateLifes();
-diamond.updateLifes();
-diamond.updateLifes();
-diamond.updateLifes();
