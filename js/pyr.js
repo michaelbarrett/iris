@@ -17,8 +17,8 @@ var Life = function(row, col, _diamond) {
     me.row = row;
     me.col = col;
 
-    me.parent1 = null; //int
-    me.parent2 = null; //int
+    me.parent1 = -1; //int
+    me.parent2 = -1; //int
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
 	return Alchemy[parent1][parent2];
@@ -40,8 +40,7 @@ var Diamond = function(height) {
 	tn = (n * (n+1)) / 2; //calc its tri number
 	//for this tn, increment n and instantiate each cell
 	for (i = 0; i <= n; i++) {
-	    _diamond[tn + i] = new Life(n, tn + i, _diamond);
-	    console.log("i: " + i + ", n: " + n + ", tn: " + tn);
+	    _diamond[tn + i] = new Life(n, tn + i, _diamond);	 
 	}
 	//now go thru row again and set up parent ints
 	for (i = 0; i <= n; i++) {
@@ -50,17 +49,23 @@ var Diamond = function(height) {
 		_diamond[tn + i].parent2 = null;
 	    }
 	    else if (i === 0) { //if on the left edge
-		_diamond[tn + i].parent1 = _diamond[(tn + i) - n];
-		_diamond[tn + i].parent2 = _diamond[(tn + i) + 1];
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - n].state;
+		_diamond[tn + i].parent2 = _diamond[(tn + i) + 1].state;
 	    }
 	    else if (i === n) { //if on the right edge
-		_diamond[tn + i].parent1 = _diamond[(tn + i) - 1];
-		_diamond[tn + i].parent2 = _diamond[(tn + i) - n - 1];
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - 1].state;
+		_diamond[tn + i].parent2 = _diamond[(tn + i) - n - 1].state;
 	    }
 	    else { //middle life
-		_diamond[tn + i].parent1 = _diamond[(tn + i) - n - 1]; //left parent
-		_diamond[tn + i].parent2 = _diamond[(tn + i) - n]; //right parent
+		_diamond[tn + i].parent1 = _diamond[(tn + i) - n - 1].state; //left parent
+		_diamond[tn + i].parent2 = _diamond[(tn + i) - n].state; //right parent
 	    }
+	}
+	//DEBUG LOOP
+	for (i = 0; i < n; i++) {
+	    console.log("i: " + i + ", n: " + n + ", tn: " + tn +
+			", parents: " + _diamond[tn + i].parent1 +
+			" and " + _diamond[tn + i].parent2); //DEBUG
 	}
     }
 
