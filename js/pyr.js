@@ -23,13 +23,11 @@ var Life = function(row, col, _diamond) {
 	//return the next state of the life based on parent states
 	if (me.parent1 === -1 || me.parent2 === -1) { //set up roots
 	    if (me.col === 1) {
-		console.log(me.parent1 + " and " + me.parent2 + " results in " +
-			    Alchemy[me.parent1][me.parent2]);
+		//console.log(me.parent1 + " and " + me.parent2 + " results in 1");
 		return 1; //left root (red)
 	    }
 	    else {
-		console.log(me.parent1 + " and " + me.parent2 + " results in " +
-			    Alchemy[me.parent1][me.parent2]);
+		//console.log(me.parent1 + " and " + me.parent2 + " results in 2");
 		return 2; //right root (blue)
 	    }
 	}
@@ -77,7 +75,7 @@ var Diamond = function(height) {
 	}
 	//DEBUG LOOP
 	for (i = 0; i <= n; i++) {
-	    console.log("i: " + i + ", n: " + n + ", tn: " + tn +
+	    console.log(/*"i: " + i + ", n: " + n + ", tn: " + tn +*/
 			", row: " + _diamond[tn + i].row + 
 			", col: " + _diamond[tn + i].col + 
 			", state: " + _diamond[tn + i].state +
@@ -86,23 +84,37 @@ var Diamond = function(height) {
 	}
     }
 
-    //realize life updates... and then update parents
+    //realize life states... and then realize life parents
     me.updateLifes = function() {
+	console.log("UPDATE--------------------------");
+	//update states of whole diamond
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
-	    //for this tn, increment n and update each cell
+	    //for this tn, increment n and update state each cell
+	    for (i = 0; i <= n; i++) {		
+		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
+	    }
+
+	    //DEBUG LOOP
 	    for (i = 0; i <= n; i++) {
-		console.log("UPDATE " + 
-			    ", row: " + _diamond[tn + i].row + 
+		console.log(", row: " + _diamond[tn + i].row + 
 			    ", col: " + _diamond[tn + i].col + 
 			    ", state: " + _diamond[tn + i].state +
 			    ", parents: " + _diamond[tn + i].parent1 +
-			    " and " + _diamond[tn + i].parent2); //DEBUG		
-		_diamond[tn + i].state = _diamond[tn + i].seeFuture();
+			    " and " + _diamond[tn + i].parent2); //DEBUG
+	    }
+	}
+	//update parents of whole diamond
+	for (n = 1; n < height; n++) { //for every row
+	    tn = (n * (n+1)) / 2; //calc its tri number
+	    //for this tn, increment n and update parents of each cell
+	    for () {
+
 	    }
 	}
     }
 }
 
 var diamond = new Diamond(5);
+diamond.updateLifes();
 diamond.updateLifes();
