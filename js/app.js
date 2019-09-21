@@ -28,7 +28,7 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	setInterval(function() {
 	    me.update();
 	    me.draw();
-	}, 600); //main loop refreshes every ~60ms
+	}, 10); //main loop refreshes every ~10 / 20 / 60ms
     }
 
     //Update updates all state in the app
@@ -41,7 +41,9 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     //Draw draws the entire app
     me.draw = function() {
 	//Erase previous draw by filling entire canvas with white
+	me.ctx.fillStyle = "rgba(0, 0, 0, 0)";
 	me.ctx.fillStyle = 'black';
+	me.ctx.fillStyle = "rgba(0, 0, 0, 1)";
 	me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
 
 	//for each life
