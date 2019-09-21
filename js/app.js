@@ -78,7 +78,8 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    var radius = 8;
 
 	    me.ctx.beginPath();
-	    me.ctx.arc(life.col * _lifeHeight,
+	    me.ctx.arc(((life.col * _lifeHeight) + (me.canvas.width / 2))
+		       - ((life.row * _lifeHeight) / 2),
 		       life.row * _lifeWidth,
 		       radius, 0, 2 * Math.PI, false);
 	    me.ctx.fill();
