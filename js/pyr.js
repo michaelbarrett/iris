@@ -44,9 +44,9 @@ var Diamond = function(height) {
 	}
 	//now go thru row again and set up parent ints
 	for (i = 0; i <= n; i++) {
-	    if (n === 0) { //root has null parents
-		_diamond[tn + i].parent1 = null;
-		_diamond[tn + i].parent2 = null;
+	    if (n === 0) { //root has -1 parents
+		_diamond[tn + i].parent1 = -1;
+		_diamond[tn + i].parent2 = -1;
 	    }
 	    else if (i === 0) { //if on the left edge
 		_diamond[tn + i].parent1 = _diamond[(tn + i) - n].state;
