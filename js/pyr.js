@@ -29,5 +29,7 @@ var Life = function(row, col, _pyr) {
 
 var Diamond = function(height) {
     var me = this;
-    var _diamond = new Array();
+    var totalNumOfLifes = (height * (height + 1)) / 2; //num in pyramid
+    var _diamond = new Array(totalNumOfLifes);
+    var _living = [];
 }
