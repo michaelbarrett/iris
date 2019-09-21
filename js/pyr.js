@@ -41,7 +41,9 @@ var Life = function(row, col, _diamond) {
 
 var Diamond = function(height) {
     var me = this;
+    console.log("height: " + height);
     var totalNumOfLifes = (height * (height + 1)) / 2; //num in pyramid
+    console.log("tnol: " + totalNumOfLifes);
     var _diamond = new Array(totalNumOfLifes);
 
     var tn;
@@ -116,6 +118,10 @@ var Diamond = function(height) {
 		_diamond[tn].parent2 = _diamond[tn + 1].state;
 	    }
 	}
+    }
+
+    me.filter = function(fcn) {
+	return _diamond.filter(fcn);
     }
 
     //realize life states... between call of update parents

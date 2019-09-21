@@ -1,6 +1,5 @@
-var App = function(targetElementId, squaresX, squaresY) {
+var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var me = this;
-
     //Get the canvas and drawing context
     me.canvas = document.getElementById(targetElementId);
     me.ctx = me.canvas.getContext("2d");
@@ -17,15 +16,11 @@ var App = function(targetElementId, squaresX, squaresY) {
     var viewWidth = me.canvas.width = window.innerWidth;
     var viewHeight = me.canvas.height = window.innerHeight;
 
-    squaresX = squaresX || 20;
-    squaresY = squaresY || 20;
-
-    //Calculate the height and width of each cell
-    var _squareWidth = me.canvas.width / squaresX;
-    var _squareHeight = _squareWidth;
+    var _lifeWidth = 32;
+    var _lifeHeight = _lifeWidth;
 
     //Initialize our Diamond data structure from above
-    var diamond = new Diamond(squaresX, squaresY);
+    var diamond = new Diamond(diamondHeight);
     var _startSim = true;
 
     //Start kicks off our main loop
@@ -50,15 +45,17 @@ var App = function(targetElementId, squaresX, squaresY) {
 	me.ctx.fillRect(0, 0, me.canvas.width, me.canvas.height);
 
 	//for each life
-	forEach(function(life) {
-	    me.ctx.fillStyle = 'black';
-	    me.ctx.fillRect(life.row * _squareWidth, life.col * _squareHeight,
-			    _squareWidth, _squareHeight);
+	diamond.filter(function(life) {
+	    return 1>0;
+	}).forEach(function(life) {
+	    me.ctx.fillStyle = 'black'; //fill with black
+	    me.ctx.fillRect(life.row * _lifeWidth, life.col * _lifeHeight,
+			    _lifeWidth, _lifeHeight);
 	});
     };
 
     return me;
 };
 
-var app = new App("game", 100, 50);
+var app = new App("iris", 100, 100, 5);
 app.start();
