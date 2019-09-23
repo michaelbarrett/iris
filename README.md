@@ -5,6 +5,8 @@ Stretching beyond the capabilities of Windows XP screensavers, IRIS intends to u
 
 Can be viewed online [here.](http://michaelbarrett.net/iris/index.html)
 
+## Full Fractal Image
+
 ![full fractal](https://files.catbox.moe/zsfws1.png)
 
-TODO: Generate full fractal image, enable further user interaction.
+TODO: Enable further user interaction
