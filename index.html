@@ -4,17 +4,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>IRIS</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/60/emojidex/59/up-pointing-red-triangle_1f53a.png">
   </head>
   <body>
-<!--    <div class="container">
-      <video class="video" id="vd1" controls autoPlay src="jellyfishjam.mp4" onplay="resize_canvas(this)"></video>
+    <!--    <div class="container">
+	    <video class="video" id="vd1" controls autoPlay src="jellyfishjam.mp4" onplay="resize_canvas(this)"></video>
     </div>-->
 
-    <canvas id="iris">
-      Your browser does not support html5 canvas.
-    </canvas>
+    <div style="max-height: 1000px; overflow: scroll">
+      <canvas id="iris">
+	Your browser does not support html5 canvas.
+      </canvas>
+      <menu id="controls">
+	<button onclick="location.reload()">NEW (press any key)</button>
+      </menu>
+    </div>
+
     <script src="js/pyr.js"></script>
     <script src="js/app.js"></script>
   </body>

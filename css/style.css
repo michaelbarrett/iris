@@ -3,7 +3,8 @@ body {
 }
 
 html {
-    background: url(https://media.giphy.com/media/KFhddg8vZNkB90hoCu/giphy.gif); no-repeat center center fixed;
+    /* background: url(https://media.giphy.com/media/KFhddg8vZNkB90hoCu/giphy.gif); no-repeat center center fixed; */
+    background-color: black;
     background-size: cover;
 }
 
@@ -30,6 +31,25 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2147483647;
+  z-index: 0;
 
+}
+
+menu {
+
+}
+
+button {
+/*    margin:0 auto;
+    display:block;*/
+
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#controls {
+    bottom: 0;
+    /* left: 0; */
+    position: absolute;
+    width: 100%;
 }

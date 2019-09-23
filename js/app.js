@@ -27,24 +27,20 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
     var timeSin;
 
     window.onkeydown = function(e) {
-	if (e.keyCode === 32 || e.key === ' ') {
-	    _startSim = !_startSim;
-	}
-    }
-
-    window.onkeydown = function(e) {
-	if (e.keyCode === 66 || e.key === 'b') {
-	    _backAnim = !_backAnim;
-	}
+	location.reload();
     }
 
     //Start kicks off our main loop
+    var counter = 0;
     var updateSpeed = 45;
     me.start = function() {	
 	startTime = new Date();
-	setInterval(function() {
+	var timeValue = setInterval(function() {
 	    me.update();
 	    me.draw();
+	    if (timeDiff > 60) {
+		clearInterval(timeValue);
+	    }
 	}, updateSpeed); //main loop refreshes every ~10 / 20 / 60ms
     }
 
@@ -59,12 +55,8 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	timeDiff /= 1000;
 	seconds = Math.round(timeDiff);
 	if (_startSim) {
-	    diamond.updateLifes(false);
+	    diamond.updateLifes();
 	}
-/*	if (timeDiff > 2) {
-	    //alert(">2");
-	    diamond.updateLifes(true);
-	} */
     };
 
     //Draw draws the entire app
@@ -81,22 +73,28 @@ var App = function(targetElementId, viewWidth, viewHeight, diamondHeight) {
 	    return 1>0;
 	}).forEach(function(life) {
 	    if (life.state === 1) {
-		me.ctx.fillStyle = 'Red';
+		//me.ctx.fillStyle = 'Red';
+		me.ctx.fillStyle = '#FC0019'
 	    }
 	    else if (life.state === 2) {
-		me.ctx.fillStyle = 'Blue';
+		//me.ctx.fillStyle = 'Blue';
+		me.ctx.fillStyle = '#00EDF5';
 	    }
 	    else if (life.state === 3) {
-		me.ctx.fillStyle = 'Purple';
+		//me.ctx.fillStyle = 'Purple';
+		me.ctx.fillStyle = '#5600CC';
 	    }
 	    else if (life.state === 4) {
-		me.ctx.fillStyle = 'DeepPink';
+		//me.ctx.fillStyle = 'DeepPink';
+		me.ctx.fillStyle = '#FF01D7';
 	    }
 	    else if (life.state === 5) {
-		me.ctx.fillStyle = 'White';
+		//me.ctx.fillStyle = 'White';
+		me.ctx.fillStyle = '#FFEB00';
 	    }
 	    else if (life.state === 6) {
-		me.ctx.fillStyle = 'Green';
+		//me.ctx.fillStyle = 'Green';
+		me.ctx.fillStyle = '#01FF4F';		
 	    }
 	    else {
 		me.ctx.fillStyle = 'Gray';

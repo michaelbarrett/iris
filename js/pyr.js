@@ -2,13 +2,17 @@
 
 var Alchemy = [
     [0, 2, 1, 0, 0, 0, 0],
-    [2, 4, 3, 3, 4, 1, 1],
+    [2, 4, 3, 3, 4, 5, 1],
     [1, 3, 2, 5, 6, 1, 1],
     [0, 3, 5, 5, 5, 1, 1],
     [0, 4, 6, 5, 3, 1, 1],
     [0, 5, 5, 1, 1, 6, 1],
     [0, 1, 1, 1, 1, 1, 2]
 ];
+
+var DieRoll = function() { //random from 1 and 6
+    return Math.floor(Math.random() * 6) + 1;
+}    
 
 var Life = function(row, col, _diamond) {
     var me = this;
@@ -22,15 +26,13 @@ var Life = function(row, col, _diamond) {
     me.seeFuture = function() {
 	//return the next state of the life based on parent states
 	if (me.parent1 === -1 || me.parent2 === -1) { //set up roots
-	    if (me.col === 1) {
-		//console.log(me.parent1 + " and " + me.parent2 + " results in 1");
-		//return 1; //left root (red)
-		return Math.floor((Math.random() * 2)) + 1;
+	    if (me.col === 1) {		
+		return 1; //left root (red)
+		//return Math.floor((Math.random() * 2)) + 1;
 	    }
-	    else {
-		//console.log(me.parent1 + " and " + me.parent2 + " results in 2");
-		//return 2; //right root (blue)
-		return Math.floor((Math.random() * 2)) + 1;
+	    else {		
+		return 2; //right root (blue)
+		//return Math.floor((Math.random() * 2)) + 1;
 	    }
 	}
 	//console.log(me.parent1 + " and " + me.parent2 + " results in " +
@@ -42,6 +44,13 @@ var Life = function(row, col, _diamond) {
 }
 
 var Diamond = function(height) {
+    for (var i = 0; i < 40; i++) {
+	Alchemy[DieRoll()][DieRoll()] = DieRoll();
+	Alchemy[DieRoll()][DieRoll()] = DieRoll();
+	Alchemy[DieRoll()][DieRoll()] = DieRoll();
+	Alchemy[DieRoll()][DieRoll()] = DieRoll();
+    }
+    
     var me = this;
     //console.log("height: " + height);
     var totalNumOfLifes = (height * (height + 1)) / 2; //num in pyramid
@@ -88,21 +97,6 @@ var Diamond = function(height) {
 	}
     }
 
-    me.counterUpdateParents = function() {
-	for (n = height-1; n != 0; n--) { //for every row (counter)
-	    tn = (n * (n+1)) / 2; //calc its tri number
-	    //for this tn, increment i and update parents of each cell
-	    for (i = 0; i <= n; i++) {
-		if (n === (height-1)) { //roots have -1 parents
-		    _diamond[tn + i].parent1 = -1;
-		    _diamond[tn + i].parent2 = -1;
-		}
-		_diamond[tn + i].parent1 = _diamond[(tn + i) + n + 1].state;
-		_diamond[tn + i].parent2 = _diamond[(tn + i) + n].state;		
-	    }
-	}
-    }
-
     me.updateParents = function() {
 	//update parents of whole diamond
 	for (n = 1; n < height; n++) { //for every row
@@ -142,8 +136,8 @@ var Diamond = function(height) {
     }
 
     //realize life states... between call of update parents
-    me.updateLifes = function(counter) {
-	//console.log("UPDATE--------------------------");
+    me.updateLifes = function() {
+	console.log("UPDATE--------------------------");
 	//update states of whole diamond
 	for (n = 1; n < height; n++) { //for every row
 	    tn = (n * (n+1)) / 2; //calc its tri number
@@ -172,24 +166,19 @@ var Diamond = function(height) {
 	    _diamond[tn + 0].state = _diamond[tn + 0].seeFuture();
 	}
 	//post upd parents general
-	if (counter === false) {
-	    me.updateParents();
-	}
-	else {
-	    me.counterUpdateParents();
-	}
+	me.updateParents();
 	
 	//console.log("post upd parents");
 	//DEBUG LOOP
 	for (n = 1; n < height; n++) { //for every row
 	    for (i = 0; i <= n; i++) {
 		tn = (n * (n+1)) / 2; //calc its tri number
-		/*console.log("i: " + i + ", n: " + n + ", tn: " + tn +
+		console.log("i: " + i + ", n: " + n + ", tn: " + tn +
 		    ", row: " + _diamond[tn + i].row + 
 			", col: " + _diamond[tn + i].col + 
 			", state: " + _diamond[tn + i].state +
 			", parents: " + _diamond[tn + i].parent1 +
-			" and " + _diamond[tn + i].parent2); */ //DEBUG
+			" and " + _diamond[tn + i].parent2); //DEBUG
 	    }
 	}
     }
